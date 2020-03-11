@@ -57,15 +57,18 @@ namespace HeistPart2
 
             while (true)
             {
+                //Print out how many operatives are in your rolodex
                 Console.WriteLine($"There are currently {rolodex.Count} available operatives");
                 Console.WriteLine("Enter the name of a new possible crew member or nothing to contine.");
                 var newMemberName = Console.ReadLine();
+                //break out of while loop if blank name is entered
                 if (string.IsNullOrEmpty(newMemberName))
                 {
                     break;
                 }
                 else
                 {
+                    //Pick new members specialty
                     Console.WriteLine($"What specialty do you want {newMemberName} to have?");
                     Console.WriteLine("Hacker (Disables alarms)");
                     Console.WriteLine("Muscle (Disarms guards)");
@@ -85,6 +88,7 @@ namespace HeistPart2
                         }
                     }
 
+                    //pick new members skill level
                     Console.WriteLine($"What is {newMemberName}'s skill level? (1-100)");
                     int newMemberSkillLevel;
                     while (true)
@@ -108,6 +112,7 @@ namespace HeistPart2
                         }
                     }
 
+                    //new members percentage cut
                     Console.WriteLine($"What percentage cut does {newMemberName} want? (1-50)");
                     int newMemberCut;
                     while (true)
@@ -131,6 +136,7 @@ namespace HeistPart2
                         }
                     }
 
+                    //create new instance off of information you entered
                     if (newMemberSpecialty == "hacker")
                     {
                         Hacker hacker = new Hacker()
