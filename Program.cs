@@ -216,6 +216,7 @@ namespace HeistPart2
 
             // Create a new list instance for your crew
             var crew = new List<IRobber>();
+            // Set a variable equal to 100 to represent how much percentage of the take is left for new crew members
             int crewCutPercentageLeft = 100;
 
             while (true)
