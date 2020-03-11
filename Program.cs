@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HeistPart2
 {
@@ -68,11 +69,11 @@ namespace HeistPart2
                 }
                 else
                 {
-                    //Pick new members specialty
+                    //Pick new member's specialty
                     Console.WriteLine($"What specialty do you want {newMemberName} to have?");
                     Console.WriteLine("Hacker (Disables alarms)");
                     Console.WriteLine("Muscle (Disarms guards)");
-                    Console.WriteLine("Lock Specialist (cracks vault)");
+                    Console.WriteLine("Lock Specialist (Cracks vault)");
                     string newMemberSpecialty;
                     while (true)
                     {
@@ -88,7 +89,7 @@ namespace HeistPart2
                         }
                     }
 
-                    //pick new members skill level
+                    //pick new member's skill level
                     Console.WriteLine($"What is {newMemberName}'s skill level? (1-100)");
                     int newMemberSkillLevel;
                     while (true)
@@ -112,7 +113,7 @@ namespace HeistPart2
                         }
                     }
 
-                    //new members percentage cut
+                    //new member's percentage cut
                     Console.WriteLine($"What percentage cut does {newMemberName} want? (1-50)");
                     int newMemberCut;
                     while (true)
@@ -172,6 +173,40 @@ namespace HeistPart2
                     }
                 }
             }
+
+            // Randomize variables for bank
+            int alarmScore = new Random().Next(0, 101);
+            int vaultScore = new Random().Next(0, 101);
+            int securityGuardScore = new Random().Next(0, 101);
+            int cashOnHand = new Random().Next(50000, 1000001);
+
+            // Create new bank instance and apply randomized variables
+            Bank bank = new Bank()
+            {
+                AlarmScore = alarmScore,
+                VaultScore = vaultScore,
+                SecurityGuardScore = securityGuardScore,
+                CashOnHand = cashOnHand
+            };
+
+            // Create dictionary to store randomized scores with corresponding labels
+            Dictionary<string, int> scores = new Dictionary<string, int>();
+            scores.Add("Alarm", alarmScore);
+            scores.Add("Vault", vaultScore);
+            scores.Add("Security Guard", securityGuardScore);
+
+            // Order dictionary by ascending score values from lowest to highest
+            var ascendingScores = scores.OrderBy(score => score.Value);
+
+            // Store the first KeyValuePair in a variable, being the lowest
+            var lowestScore = ascendingScores.First();
+            // Store the last KeyValuePair in a variable, being the highest
+            var highestScore = ascendingScores.Last();
+
+            // Console the most secure system
+            Console.WriteLine($"Most secure: {highestScore.Key}");
+            // Console the least secure system
+            Console.WriteLine($"Least secure: {lowestScore.Key}");
         }
     }
 }
