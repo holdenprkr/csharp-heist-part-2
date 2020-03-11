@@ -19,5 +19,10 @@ namespace HeistPart2
                 Console.WriteLine($"{Name} is holding off the security guards. Decreased the security guards's defense by {SkillLevel} points");
             }
         }
+
+        public override string ToString()
+        {
+            return $"{Name}'s the muscle of the job with a skill level of {SkillLevel} and want's a {PercentageCut}% cut of the take.";
+        }
     }
 }

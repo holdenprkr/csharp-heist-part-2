@@ -207,6 +207,61 @@ namespace HeistPart2
             Console.WriteLine($"Most secure: {highestScore.Key}");
             // Console the least secure system
             Console.WriteLine($"Least secure: {lowestScore.Key}");
+
+            // Console the index of each robber in your rolodex and their report
+            foreach (var robber in rolodex)
+            {
+                Console.WriteLine($"{rolodex.IndexOf(robber)}: {robber}");
+            }
+
+            // Create a new list instance for your crew
+            var crew = new List<IRobber>();
+            int crewCutPercentageLeft = 100;
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Which robber would you like to add to your crew? (Index integer)");
+                    //Check to see if nothing is entered
+                    var robberIndexString = Console.ReadLine();
+                    if (string.IsNullOrEmpty(robberIndexString))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        var robberIndex = int.Parse(robberIndexString);
+
+                        if (robberIndex < rolodex.Count || robberIndex >= 0)
+                        {
+                            //Add member to your crew
+                            crew.Add(rolodex[robberIndex]);
+                            //Subtract added member's percentage cut from crewCutPercentageLeft
+                            crewCutPercentageLeft -= rolodex[robberIndex].PercentageCut;
+                            //Remove new crew member from rolodex
+                            rolodex.Remove(rolodex[robberIndex]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please enter a valid index integer");
+                        }
+                    }
+
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid index integer");
+                }
+                //  Display who's left you're able to add
+                foreach (var robber in rolodex)
+                {
+                    if (crewCutPercentageLeft - robber.PercentageCut >= 0)
+                    {
+                        Console.WriteLine($"{rolodex.IndexOf(robber)}: {robber}");
+                    }
+                }
+            }
         }
     }
 }

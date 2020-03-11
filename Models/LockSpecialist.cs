@@ -19,5 +19,10 @@ namespace HeistPart2
                 Console.WriteLine($"{Name} is picking the lock to the vault. Decreased vault security by {SkillLevel} points");
             }
         }
+
+        public override string ToString()
+        {
+            return $"{Name}'s a lock specialist with a skill level of {SkillLevel} and want's a {PercentageCut}% cut of the take.";
+        }
     }
 }

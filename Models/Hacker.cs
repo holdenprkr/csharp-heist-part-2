@@ -19,5 +19,10 @@ namespace HeistPart2
                 Console.WriteLine($"{Name} is hacking the alarm system. Decreased security by {SkillLevel} points");
             }
         }
+
+        public override string ToString()
+        {
+            return $"{Name}'s a hacker with a skill level of {SkillLevel} and want's a {PercentageCut}% cut of the take.";
+        }
     }
 }
