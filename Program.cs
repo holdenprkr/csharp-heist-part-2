@@ -58,9 +58,16 @@ namespace HeistPart2
 
             while (true)
             {
+                // Makes the console a bit more user-friendly by adding a break in the terminal
+                Console.WriteLine("");
+
                 //Print out how many operatives are in your rolodex
                 Console.WriteLine($"There are currently {rolodex.Count} available operatives");
-                Console.WriteLine("Enter the name of a new possible crew member or nothing to contine.");
+
+                // Makes the console a bit more user-friendly by adding a break in the terminal
+                Console.WriteLine("");
+
+                Console.WriteLine("Enter the name of a new possible crew member or press enter to contine.");
                 var newMemberName = Console.ReadLine();
                 //break out of while loop if blank name is entered
                 if (string.IsNullOrEmpty(newMemberName))
@@ -180,6 +187,8 @@ namespace HeistPart2
             int securityGuardScore = new Random().Next(0, 101);
             int cashOnHand = new Random().Next(50000, 1000001);
 
+            Console.WriteLine($"cashOnHand {cashOnHand}");
+
             // Create new bank instance and apply randomized variables
             Bank bank = new Bank()
             {
@@ -203,10 +212,13 @@ namespace HeistPart2
             // Store the last KeyValuePair in a variable, being the highest
             var highestScore = ascendingScores.Last();
 
+            Console.WriteLine("-----------------------------------");
             // Console the most secure system
             Console.WriteLine($"Most secure: {highestScore.Key}");
             // Console the least secure system
             Console.WriteLine($"Least secure: {lowestScore.Key}");
+
+            Console.WriteLine("-----------------------------------");
 
             // Console the index of each robber in your rolodex and their report
             foreach (var robber in rolodex)
@@ -223,7 +235,10 @@ namespace HeistPart2
             {
                 try
                 {
-                    Console.WriteLine("Which robber would you like to add to your crew? (Index integer)");
+                    // Makes the console a bit more user-friendly by adding a break in the terminal
+                    Console.WriteLine("");
+
+                    Console.WriteLine("Which robber would you like to add to your crew? (Index integer or press enter to continue)");
                     //Check to see if nothing is entered
                     var robberIndexString = Console.ReadLine();
                     if (string.IsNullOrEmpty(robberIndexString))
@@ -254,6 +269,15 @@ namespace HeistPart2
                 {
                     Console.WriteLine("Invalid input. Please enter a valid index integer");
                 }
+                // Makes the console a bit more user-friendly by adding a break in the terminal
+                Console.WriteLine("");
+                // Display the securities again for better user experience
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine($"Most secure: {highestScore.Key}");
+                Console.WriteLine($"Least secure: {lowestScore.Key}");
+                Console.WriteLine("-----------------------------------");
+
+                Console.WriteLine("Robbers available to add to your crew:");
                 //  Display who's left you're able to add
                 foreach (var robber in rolodex)
                 {
@@ -262,6 +286,41 @@ namespace HeistPart2
                         Console.WriteLine($"{rolodex.IndexOf(robber)}: {robber}");
                     }
                 }
+            }
+
+            // Have each crew member in your crew perform their skill on the bank
+            foreach (var crewMember in crew)
+            {
+                crewMember.PerformSkill(bank);
+            }
+
+            // Makes the console a bit more user-friendly by adding a break in the terminal
+            Console.WriteLine("");
+
+            // Check to see if the bank is still secure after the heist
+            if (bank.IsSecure)
+            {
+                // Failure message:
+                Console.WriteLine("Unfortunately everyone's hard work didn't pay off. Don't quit your day jobs!");
+            }
+            else
+            {
+                // Success message and report:
+                Console.WriteLine($"Success! Your crew managed to get away with ${cashOnHand}!");
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine("Everyone gets their piece of the pie:");
+                Console.WriteLine("--------------------------------------");
+                foreach (var crewMember in crew)
+                {
+                    // Calculate how much each crew member gets from the heist
+                    double cut = (crewMember.PercentageCut * cashOnHand) / 100;
+                    Console.WriteLine($"{crewMember.Name} walks away with ${cut}!");
+                }
+                // Makes the console a bit more user-friendly by adding a break in the terminal
+                Console.WriteLine("");
+                // Calculate what you walk away with for setting up the heist!
+                double leftover = (crewCutPercentageLeft * cashOnHand) / 100;
+                Console.WriteLine($"For setting up the heist you get what's leftover and walk away with ${leftover}. Good job!");
             }
         }
     }

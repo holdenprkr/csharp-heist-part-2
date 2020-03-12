@@ -22,7 +22,7 @@ namespace HeistPart2
 
         public override string ToString()
         {
-            return $"{Name}'s a lock specialist with a skill level of {SkillLevel} and want's a {PercentageCut}% cut of the take.";
+            return $"{Name}'s a lock specialist with a skill level of {SkillLevel} and wants a {PercentageCut}% cut of the take.";
         }
     }
 }
